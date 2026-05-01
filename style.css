@@ -1,27 +1,127 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #1f2937;
 }
 
-.conteiner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
 }
 
-.caixa {
-    width: 350px;
-    padding: 30px;
-    border-radius: 15px;
-    background-color: #fff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 2);
-    text-align: center;
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 22px;
+}
+
+h1 {
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  margin-bottom: 16px;
+  color: #6b7280;
+}
+
+.task-form {
+  display: grid;
+  gap: 8px;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #4b5563;
+}
+
+button.danger {
+  background: #dc2626;
+}
+
+.error-box {
+  display: none;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  background: #fef2f2;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.error-box.visible {
+  display: block;
+}
+
+.table-area {
+  margin-top: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tasks-table th,
+#tasks-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+#tasks-table th {
+  background: #eef2ff;
+}
+
+.task-done td {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.empty {
+  text-align: center;
+  color: #6b7280;
 }

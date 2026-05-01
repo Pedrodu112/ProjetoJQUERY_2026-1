@@ -1,36 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProjetoJQUERY_2026-1</title>
+    <title>Gerenciador Avançado de Tarefas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="conteiner">
-        <div class="caixa">
-            <h1>Cadastro de Usuário</h1>
-            <form class="box">
-                <label for="nome">Nome: </label>
-                <input type="text" id="nome" name="nome" required>
-                <br><br>
+    <main class="container">
+        <section class="card">
+            <h1>Gerenciador Avançado de Tarefas</h1>
+            <p class="subtitle">Cadastre, edite, filtre e persista tarefas no navegador.</p>
 
-                <label for="email">Email: </label>
-                <input type="email" id="email" name="email" required>
-                <br><br>
+            <form id="task-form" class="task-form">
+                <div class="error-box" id="error-box"></div>
 
-                <label for="senha">Senha: </label>
-                <input type="password" id="senha" name="senha" required>
-                <br><br>
+                <label for="title">Título *</label>
+                <input type="text" id="title" name="title" placeholder="Ex.: Estudar jQuery">
 
-                <button type="submit">Cadastrar</button>
+                <label for="description">Descrição</label>
+                <textarea id="description" name="description" rows="3" placeholder="Detalhes da tarefa..."></textarea>
+
+                <label for="priority">Prioridade</label>
+                <select id="priority" name="priority">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média" selected>Média</option>
+                    <option value="Alta">Alta</option>
+                </select>
+
+                <label for="deadline">Data limite</label>
+                <input type="date" id="deadline" name="deadline">
+
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="Pendente" selected>Pendente</option>
+                    <option value="Concluída">Concluída</option>
+                </select>
+
+                <div id="dynamic-observation-area"></div>
+
+                <div class="button-row">
+                    <button type="button" id="btn-observation" class="secondary">+ Observação</button>
+                    <button type="submit" id="btn-submit">Concluir</button>
+                </div>
             </form>
-        </div>
-    </div>
+
+            <section id="table-area" class="table-area"></section>
+        </section>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-       
+    <script src="script.js"></script>
 </body>
 </html>
