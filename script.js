@@ -1,227 +1,164 @@
-const STORAGE_KEY = 'tarefas_avancadas';
+const STORAGE_KEY = 'tarefas_avancadas'
+
 const estado = {
   tarefas: [],
   editandoId: null,
   filtros: { status: 'Todos', prioridade: 'Todas' }
-};
+}
 
-// ===== JS PURO (regra da atividade) =====
 function salvarTarefas() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(estado.tarefas));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(estado.tarefas))
 }
 
 function carregarTarefas() {
-  const bruto = localStorage.getItem(STORAGE_KEY);
-  if (!bruto) return [];
-  try {
-    const lista = JSON.parse(bruto);
-    return Array.isArray(lista) ? lista : [];
-  } catch {
-    return [];
-  }
+  const bruto = localStorage.getItem(STORAGE_KEY)
+  if (!bruto) return []
+  try { return JSON.parse(bruto) || [] } catch { return [] }
 }
 
-function adicionarTarefa(tarefa) {
-  estado.tarefas.push(tarefa);
+function adicionarTarefa(tarefa) { estado.tarefas.push(tarefa) }
+function atualizarTarefa(tarefaNova) {
+  estado.tarefas = estado.tarefas.map(t => t.id === tarefaNova.id ? tarefaNova : t)
 }
-
-function atualizarTarefa(tarefaAtualizada) {
-  estado.tarefas = estado.tarefas.map((t) => (t.id === tarefaAtualizada.id ? tarefaAtualizada : t));
-}
-
-function excluirTarefa(id) {
-  estado.tarefas = estado.tarefas.filter((t) => t.id !== id);
-}
+function excluirTarefa(id) { estado.tarefas = estado.tarefas.filter(t => t.id !== id) }
 
 function filtrarTarefas() {
-  return estado.tarefas.filter((t) => {
-    const okStatus = estado.filtros.status === 'Todos' || t.status === estado.filtros.status;
-    const okPrioridade = estado.filtros.prioridade === 'Todas' || t.priority === estado.filtros.prioridade;
-    return okStatus && okPrioridade;
-  });
+  return estado.tarefas.filter(t => {
+    const okStatus = estado.filtros.status === 'Todos' || t.status === estado.filtros.status
+    const okPrioridade = estado.filtros.prioridade === 'Todas' || t.priority === estado.filtros.prioridade
+    return okStatus && okPrioridade
+  })
 }
 
-// ===== jQuery (interface e eventos) =====
-function criarCampoObservacao(texto = '') {
-  if ($('#observation').length) return;
-  $('#dynamic-observation-area').append(`
-    <label for="observation">Observação</label>
-    <textarea id="observation" rows="2" placeholder="Escreva uma observação..."></textarea>
-  `);
-  $('#observation').val(texto);
+function criarCampoObservacao(valor = '') {
+  if ($('#observacao').length) return
+  $('#area-observacao-dinamica').append('<label for="observacao">Observação</label><textarea id="observacao" rows="2" placeholder="Escreva uma observação..."></textarea>')
+  $('#observacao').val(valor)
 }
 
-function removerCampoObservacao() {
-  $('#dynamic-observation-area').html('');
-}
+function removerCampoObservacao() { $('#area-observacao-dinamica').empty() }
 
 function limparFormulario() {
-  $('#Ftarefa')[0].reset();
-  $('#priority').val('Média');
-  $('#status').val('Pendente');
-  $('#btn-submit').text('Concluir');
-  removerCampoObservacao();
-  $('#error-box').removeClass('visible').text('');
-  estado.editandoId = null;
+  $('#form-tarefa')[0].reset()
+  $('#prioridade').val('Média')
+  $('#situacao').val('Pendente')
+  $('#btn-concluir').text('Concluir')
+  $('#caixa-erro').removeClass('visible').text('')
+  removerCampoObservacao()
+  estado.editandoId = null
 }
 
-function mostrarErro(msg) {
-  $('#error-box').addClass('visible').text(msg);
-}
+function mostrarErro(msg) { $('#caixa-erro').addClass('visible').text(msg) }
 
-function criarTabelaSeNecessario() {
-  if ($('#Tabela_tarefa').length) return;
+function criarEstruturaTabela() {
+  if ($('#tabela-tarefas').length) return
 
-  $('#table-area').html(`
-    <div class="filtros" id="fitros">
-      <select id="filter-status">
-        <option value="Todos">Todos os status</option>
-        <option value="Pendente">Pendente</option>
-        <option value="Concluída">Concluída</option>
-      </select>
-      <select id="filter-priority">
-        <option value="Todas">Todas as prioridades</option>
-        <option value="Baixa">Baixa</option>
-        <option value="Média">Média</option>
-        <option value="Alta">Alta</option>
-      </select>
-      <button type="button" id="btn-filter" class="secondary">Filtrar</button>
-    </div>
+  const filtros = $('<div class="filtros"></div>')
+  filtros.append('<select id="filtro-situacao"><option value="Todos">Todos os status</option><option value="Pendente">Pendente</option><option value="Concluída">Concluída</option></select>')
+  filtros.append('<select id="filtro-prioridade"><option value="Todas">Todas as prioridades</option><option value="Baixa">Baixa</option><option value="Média">Média</option><option value="Alta">Alta</option></select>')
+  filtros.append('<button type="button" id="btn-filtrar" class="secundario">Filtrar</button>')
 
-    <table id="Tabela_tarefa">
-      <thead>
-        <tr>
-          <th>Título</th><th>Descrição</th><th>Prioridade</th><th>Data limite</th>
-          <th>Status</th><th>Observação</th><th>Ações</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  `);
+  const tabela = $('<table id="tabela-tarefas"><thead><tr><th>Título</th><th>Descrição</th><th>Prioridade</th><th>Data limite</th><th>Status</th><th>Observação</th><th>Ações</th></tr></thead><tbody></tbody></table>')
+
+  $('#area-tabela').empty().append(filtros, tabela)
 }
 
 function formatarData(data) {
-  if (!data) return '-';
-  const [ano, mes, dia] = data.split('-');
-  return `${dia}/${mes}/${ano}`;
+  if (!data) return '-'
+  const [ano, mes, dia] = data.split('-')
+  return `${dia}/${mes}/${ano}`
 }
 
 function renderizarTabela() {
   if (!estado.tarefas.length) {
-    $('#table-area').html('');
-    return;
+    $('#area-tabela').empty()
+    return
   }
 
-  criarTabelaSeNecessario();
-  const lista = filtrarTarefas();
-  const $tbody = $('#Tabela_tarefa tbody');
-  $tbody.html('');
+  criarEstruturaTabela()
+  const lista = filtrarTarefas()
+  const $tbody = $('#tabela-tarefas tbody')
+  $tbody.empty()
 
-  if (!lista.length) {
-    $tbody.append('<tr><td class="empty" colspan="7">Nenhuma tarefa para os filtros selecionados.</td></tr>');
-  }
+  if (!lista.length) $tbody.append('<tr><td class="vazio" colspan="7">Nenhuma tarefa para os filtros selecionados.</td></tr>')
 
-  lista.forEach((t) => {
-    const doneClass = t.status === 'Concluída' ? 'task-done' : '';
-    $tbody.append(`
-      <tr data-id="${t.id}" class="${doneClass}">
-        <td>${t.title}</td>
-        <td>${t.description || '-'}</td>
-        <td>${t.priority}</td>
-        <td>${formatarData(t.deadline)}</td>
-        <td>${t.status}</td>
-        <td>${t.observation || '-'}</td>
-        <td>
-          <button type="button" class="btn-edit">Editar</button>
-          <button type="button" class="btn-delete danger">Excluir</button>
-        </td>
-      </tr>
-    `);
-  });
+  lista.forEach(t => {
+    const classe = t.status === 'Concluída' ? 'tarefa-concluida' : ''
+    $tbody.append(`<tr data-id="${t.id}" class="${classe}"><td>${t.title}</td><td>${t.description || '-'}</td><td>${t.priority}</td><td>${formatarData(t.deadline)}</td><td>${t.status}</td><td>${t.observation || '-'}</td><td><button type="button" class="btn-editar">Editar</button> <button type="button" class="btn-excluir perigo">Excluir</button></td></tr>`)
+  })
 
-  $('#filter-status').val(estado.filtros.status);
-  $('#filter-priority').val(estado.filtros.prioridade);
+  $('#filtro-situacao').val(estado.filtros.status)
+  $('#filtro-prioridade').val(estado.filtros.prioridade)
 }
 
-function preencherFormulario(id) {
-  const tarefa = estado.tarefas.find((t) => t.id === id);
-  if (!tarefa) return;
+function abrirEdicao(id) {
+  const tarefa = estado.tarefas.find(t => t.id === id)
+  if (!tarefa) return
 
-  $('#title').val(tarefa.title);
-  $('#description').val(tarefa.description);
-  $('#priority').val(tarefa.priority);
-  $('#deadline').val(tarefa.deadline);
-  $('#status').val(tarefa.status);
-
-  if (tarefa.observation) criarCampoObservacao(tarefa.observation);
-  else removerCampoObservacao();
-
-  estado.editandoId = id;
-  $('#btn-submit').text('Atualizar');
+  $('#titulo').val(tarefa.title)
+  $('#descricao').val(tarefa.description)
+  $('#prioridade').val(tarefa.priority)
+  $('#data-limite').val(tarefa.deadline)
+  $('#situacao').val(tarefa.status)
+  tarefa.observation ? criarCampoObservacao(tarefa.observation) : removerCampoObservacao()
+  $('#btn-concluir').text('Atualizar')
+  estado.editandoId = id
 }
 
 $(function () {
-  estado.tarefas = carregarTarefas();
-  renderizarTabela();
+  estado.tarefas = carregarTarefas()
+  renderizarTabela()
 
-  $('#btn-observation').on('click', function () {
-    if ($('#observation').length) removerCampoObservacao();
-    else criarCampoObservacao();
-  });
+  $('#btn-observacao').on('click', function () {
+    $('#observacao').length ? removerCampoObservacao() : criarCampoObservacao()
+  })
 
-  $('#Ftarefa').on('submit', function (e) {
-    e.preventDefault();
-    $('#error-box').removeClass('visible').text('');
+  $('#form-tarefa').on('submit', function (e) {
+    e.preventDefault()
+    $('#caixa-erro').removeClass('visible').text('')
 
-    const title = $('#title').val().trim();
-    if (!title) {
-      mostrarErro('O título da tarefa é obrigatório.');
-      return;
-    }
+    const title = $('#titulo').val().trim()
+    if (!title) return mostrarErro('O título da tarefa é obrigatório.')
 
     const tarefa = {
       id: estado.editandoId || `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
       title,
-      description: $('#description').val().trim(),
-      priority: $('#priority').val(),
-      deadline: $('#deadline').val(),
-      status: $('#status').val(),
-      observation: $('#observation').length ? $('#observation').val().trim() : ''
-    };
+      description: $('#descricao').val().trim(),
+      priority: $('#prioridade').val(),
+      deadline: $('#data-limite').val(),
+      status: $('#situacao').val(),
+      observation: $('#observacao').length ? $('#observacao').val().trim() : ''
+    }
 
-    if (estado.editandoId) atualizarTarefa(tarefa);
-    else adicionarTarefa(tarefa);
+    estado.editandoId ? atualizarTarefa(tarefa) : adicionarTarefa(tarefa)
+    salvarTarefas()
+    renderizarTabela()
+    limparFormulario()
+  })
 
-    salvarTarefas();
-    renderizarTabela();
-    limparFormulario();
-  });
+  $('#area-tabela').on('click', '.btn-excluir', function () {
+    excluirTarefa($(this).closest('tr').data('id'))
+    salvarTarefas()
+    renderizarTabela()
+  })
 
-  $('#table-area').on('click', '.btn-delete', function () {
-    const id = $(this).closest('tr').data('id');
-    excluirTarefa(id);
-    salvarTarefas();
-    renderizarTabela();
-  });
+  $('#area-tabela').on('click', '.btn-editar', function () {
+    abrirEdicao($(this).closest('tr').data('id'))
+  })
 
-  $('#table-area').on('click', '.btn-edit', function () {
-    const id = $(this).closest('tr').data('id');
-    preencherFormulario(id);
-  });
+  $('#area-tabela').on('dblclick', 'tr', function () {
+    const id = $(this).data('id')
+    if (id) abrirEdicao(id)
+  })
 
-  $('#table-area').on('dblclick', 'tr', function () {
-    const id = $(this).data('id');
-    if (id) preencherFormulario(id);
-  });
+  $('#area-tabela').on('click', '#btn-filtrar', function () {
+    estado.filtros.status = $('#filtro-situacao').val()
+    estado.filtros.prioridade = $('#filtro-prioridade').val()
+    renderizarTabela()
+  })
 
-  $('#table-area').on('click', '#btn-filter', function () {
-    estado.filtros.status = $('#filter-status').val();
-    estado.filtros.prioridade = $('#filter-priority').val();
-    renderizarTabela();
-  });
-
-  $('#table-area').on('change', '#filter-status, #filter-priority', function () {
-    estado.filtros.status = $('#filter-status').val();
-    estado.filtros.prioridade = $('#filter-priority').val();
-  });
-});
+  $('#area-tabela').on('change', '#filtro-situacao,#filtro-prioridade', function () {
+    estado.filtros.status = $('#filtro-situacao').val()
+    estado.filtros.prioridade = $('#filtro-prioridade').val()
+  })
+})

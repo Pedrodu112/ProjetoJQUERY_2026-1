@@ -4,66 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title> Gerenciador Avançado de Tarefas </title>
-
+    <title>Gerenciador Avançado de Tarefas</title>
     <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-    <main class="container">
-    <section class="caixa">
-    <h1> Gerenciador Avançado de Tarefas </h1>
-    <br><br>
-           
-    <form id="Ftarefa" class="Ftarefa">
-            <div class="error-box" id="error-box"></div>
+    <main class="conteiner">
+        <section class="cartao">
+            <h1>Gerenciador Avançado de Tarefas</h1>
+            <p class="subtitulo">Cadastre, edite, filtre e persista tarefas no navegador.</p>
 
-                <label for="title"> Título * </label>
-                    <input type="text" id="title" name="title">
+            <form id="form-tarefa" class="form-tarefa">
+                <div class="caixa-erro" id="caixa-erro"></div>
 
-                <label for="description"> Descrição </label>
-                     <textarea id="description" name="description" rows="3"></textarea>
+                <label for="titulo">Título *</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Ex.: Estudar jQuery">
 
-                <label for="priority"> Prioridade </label>
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" rows="3" placeholder="Detalhes da tarefa..."></textarea>
 
-                <select id="priority" name="priority">
-                    
-                    <option value="Baixa"> Baixa </option>
-                    <option value="Média" selected> Média </option>
-                    <option value="Alta"> Alta </option>
-                    
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade" name="prioridade">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média" selected>Média</option>
+                    <option value="Alta">Alta</option>
                 </select>
 
-                <label for="deadline"> Data limite </label>
-                    <input type="date" id="deadline" name="deadline">
+                <label for="data-limite">Data limite</label>
+                <input type="date" id="data-limite" name="data-limite">
 
-                <label for="status"> Status </label>
-                <select id="status" name="status">
-
-                    <option value="Pendente"> Pendente </option>
-                    <option value="Concluída"> Concluída </option>
-
+                <label for="situacao">Status</label>
+                <select id="situacao" name="situacao">
+                    <option value="Pendente" selected>Pendente</option>
+                    <option value="Concluída">Concluída</option>
                 </select>
 
-                    <div id="dynamic-observation-area"></div>
+                <div id="area-observacao-dinamica"></div>
 
-                <div class="button-row">
-
-                    <button type="button" id="btn-observation" class="secondary"> + Observação </button>
-                    <button type="submit" id="btn-submit"> Concluir </button>
-
+                <div class="linha-botoes">
+                    <button type="button" id="btn-observacao" class="secundario">+ Observação</button>
+                    <button type="submit" id="btn-concluir">Concluir</button>
                 </div>
-                </form>
+            </form>
 
-        <section id="table-area" class="table-area"></section>
+            <section id="area-tabela" class="area-tabela"></section>
         </section>
-
     </main>
 
- 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
