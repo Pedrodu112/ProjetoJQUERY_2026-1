@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: Arial, sans-serif;
   background: #f4f6fb;
@@ -16,6 +17,8 @@ body {
   padding: 0 16px;
 }
 
+
+
 .cartao {
   background: #fff;
   border-radius: 12px;
@@ -23,29 +26,50 @@ body {
   padding: 22px;
 }
 
+
 h1 {
   margin-bottom: 6px;
 }
 
-.subtitulo {
-  margin-bottom: 16px;
-  color: #6b7280;
-}
+
 
 .form-tarefa {
   display: grid;
   gap: 8px;
 }
 
-input,
-textarea,
-select,
+
+
+input {
+  font: inherit;
+}
+textarea {
+  font: inherit;
+}
+select {
+  font: inherit;
+}
 button {
   font: inherit;
 }
 
-input,
-textarea,
+
+
+input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+
 select {
   width: 100%;
   border: 1px solid #d1d5db;
@@ -53,11 +77,13 @@ select {
   padding: 10px;
 }
 
+
 .linha-botoes {
   display: flex;
   gap: 8px;
   margin-top: 8px;
 }
+
 
 button {
   border: none;
@@ -68,14 +94,15 @@ button {
   cursor: pointer;
 }
 
+
 button.secundario {
   background: #4b5563;
 }
 
+
 button.perigo {
   background: #dc2626;
 }
-
 .caixa-erro {
   display: none;
   border: 1px solid #fecaca;
@@ -85,26 +112,34 @@ button.perigo {
   padding: 8px;
 }
 
+
+
 .caixa-erro.visible {
   display: block;
 }
-
 .area-tabela {
   margin-top: 20px;
 }
-
 .filtros {
   display: flex;
   gap: 8px;
   margin-bottom: 10px;
 }
 
+
+
 #tabela-tarefas {
   width: 100%;
   border-collapse: collapse;
 }
 
-#tabela-tarefas th,
+#tabela-tarefas th {
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
 #tabela-tarefas td {
   border: 1px solid #e5e7eb;
   padding: 10px;
@@ -115,11 +150,13 @@ button.perigo {
 #tabela-tarefas th {
   background: #eef2ff;
 }
+ 
 
 .tarefa-concluida td {
   text-decoration: line-through;
   color: #6b7280;
 }
+
 
 .vazio {
   text-align: center;
