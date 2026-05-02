@@ -56,7 +56,7 @@ function removerCampoObservacao() {
 }
 
 function limparFormulario() {
-  $('#task-form')[0].reset();
+  $('#Ftarefa')[0].reset();
   $('#priority').val('Média');
   $('#status').val('Pendente');
   $('#btn-submit').text('Concluir');
@@ -70,10 +70,10 @@ function mostrarErro(msg) {
 }
 
 function criarTabelaSeNecessario() {
-  if ($('#tasks-table').length) return;
+  if ($('#Tabela_tarefa').length) return;
 
   $('#table-area').html(`
-    <div class="filters" id="filters">
+    <div class="filtros" id="fitros">
       <select id="filter-status">
         <option value="Todos">Todos os status</option>
         <option value="Pendente">Pendente</option>
@@ -88,7 +88,7 @@ function criarTabelaSeNecessario() {
       <button type="button" id="btn-filter" class="secondary">Filtrar</button>
     </div>
 
-    <table id="tasks-table">
+    <table id="Tabela_tarefa">
       <thead>
         <tr>
           <th>Título</th><th>Descrição</th><th>Prioridade</th><th>Data limite</th>
@@ -114,7 +114,7 @@ function renderizarTabela() {
 
   criarTabelaSeNecessario();
   const lista = filtrarTarefas();
-  const $tbody = $('#tasks-table tbody');
+  const $tbody = $('#Tabela_tarefa tbody');
   $tbody.html('');
 
   if (!lista.length) {
@@ -169,7 +169,7 @@ $(function () {
     else criarCampoObservacao();
   });
 
-  $('#task-form').on('submit', function (e) {
+  $('#Ftarefa').on('submit', function (e) {
     e.preventDefault();
     $('#error-box').removeClass('visible').text('');
 

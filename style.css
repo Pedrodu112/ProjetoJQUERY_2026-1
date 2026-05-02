@@ -16,7 +16,7 @@ body {
   padding: 0 16px;
 }
 
-.card {
+.caixa {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -27,25 +27,40 @@ h1 {
   margin-bottom: 6px;
 }
 
-.subtitle {
-  margin-bottom: 16px;
-  color: #6b7280;
-}
 
-.task-form {
+
+.Ftarefa {
   display: grid;
   gap: 8px;
 }
 
-input,
-textarea,
-select,
+input {
+  font: inherit;
+}
+textarea {
+  font: inherit;
+}
+select {
+  font: inherit;
+}
 button {
   font: inherit;
 }
 
-input,
-textarea,
+input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
 select {
   width: 100%;
   border: 1px solid #d1d5db;
@@ -93,13 +108,13 @@ button.danger {
   margin-top: 20px;
 }
 
-.filters {
+.filtros {
   display: flex;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-#tasks-table {
+#Tabela_tarefa {
   width: 100%;
   border-collapse: collapse;
 }
