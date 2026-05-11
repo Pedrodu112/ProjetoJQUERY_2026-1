@@ -1,12 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador Avançado de Tarefas</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="conteiner">
+        <section class="cartao">
+            <form id="form-tarefa" class="form-tarefa">
+            <h1>Gerenciador Avançado de Tarefas</h1>
+            
+
+            <div class="caixa-erro" id="caixa-erro"></div>
+
+            <label for="titulo">Titulo*</label>
+            <input type="text" id="titulo" class="titulo">
+            
+
+            <label for="descricao">Descriçao</label>
+            <textarea name="descricao" id="descricao" rows="3"></textarea>
+            
+
+            <label for="prioridade">Prioridade</label>
+                <select name="prioridade" id="prioridade">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            
+
+            <label for="data-limite">Data Limite</label>
+            <input type="date" id="data-limite" name="data-limite">
+            
+
+            <label for="status">Status</label>
+                <select name="status" id="status">
+                    <option value="pendente">Pendente</option>
+                    <option value="concluida">Concluida</option>
+                </select>
+                
+            
+            <div id="area-observacao-dinamica"></div>
+            
+            <div class="linha-botoes">
+                <button type="button" id="btn-observacao" class="secundario">+Observaçao</button>
+                <button type="submit" id="btn-concluir">Concluida</button>
+            </div>
+
+            </form>
+
+            <section id="area-tabela" class="area-tabela"></section>
+            
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #1f2937;
+}
+
+.conteiner {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+
+
+.cartao {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 22px;
+}
+
+
+h1 {
+  margin-bottom: 6px;
+}
+
+
+
+.form-tarefa {
+  display: grid;
+  gap: 8px;
+}
+
+
+
+input {
+  font: inherit;
+}
+textarea {
+  font: inherit;
+}
+select {
+  font: inherit;
+}
+button {
+  font: inherit;
+}
+
+
+
+input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+
+select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+
+.linha-botoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+button.secundario {
+  background: #4b5563;
+}
+
+
+button.perigo {
+  background: #dc2626;
+}
+.caixa-erro {
+  display: none;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  background: #fef2f2;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+
+
+.caixa-erro.visivel {
+  display: block;
+}
+.area-tabela {
+  margin-top: 20px;
+}
+.filtros {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+
+
+#tabela-tarefas {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tabela-tarefas th {
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+#tabela-tarefas td {
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+#tabela-tarefas th {
+  background: #eef2ff;
+}
+ 
+
+.tarefa-concluida td {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+
+.vazio {
+  text-align: center;
+  color: #6b7280;
+}
