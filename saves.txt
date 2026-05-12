@@ -1,1 +1,7 @@
 git config --global user.name
+
+#area-observacao-dinamica 
+
+<label for="observacao">Observação</label>
+<textarea id="observacao" rows="2"></textarea>
+

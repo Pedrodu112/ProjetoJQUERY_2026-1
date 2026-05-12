@@ -42,6 +42,10 @@ h1 {
     padding: 10px;
   }
 
+  input.data {  
+    width: 20%; 
+  }
+
   .linha-botoes {
     display: flex;
     gap: 8px;

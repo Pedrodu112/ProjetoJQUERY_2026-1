@@ -54,7 +54,7 @@ function criarId() {
 $(function () {
   function criarCampoObservacao(valor = '') {
     if ($('#observacao').length) return
-    $('#area-observacao-dinamica').append('<label for="observacao">Observação</label><textarea id="observacao" rows="2" placeholder="Escreva uma observação..."></textarea>')
+    $('#area-observacao-dinamica').append('<label for="observacao">Observação</label><textarea id="observacao" rows="2"></textarea>')
     $('#observacao').val(valor)
   }
 
