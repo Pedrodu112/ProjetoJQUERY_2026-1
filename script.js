@@ -66,6 +66,32 @@ $(function () {
         $('area-observacao-dinamica').empty()
     }
 
-    
+    function mostrarErro (mensagem) {
+        $('#caixa-erro').addClass('visivel').text(mensagem)
+    }
+
+    function limparErro () {
+        $('#caixa-erro').removeClass('visivel').text('')
+    }
+
+    function limparFormulario () {
+        $('#form-tarefa')[0].reset()
+        $('#prioridade').val('Média')
+        $('#situacao').val('Pendente')
+        $('#btn-concluir').text('Concluir')
+        limparErro()
+        removerCampoObservacao()
+        estado.editandoId = null
+    }
+
+    function criarEstruturaTabela() {
+        if($('#tabela-tarefas').length) return))
+
+        const filtros =('<div class="filtros"></div>')
+             filtros.append('<select id="filtro-situacao"></select>')
+             filtros.append('<select id="filtro-prioridade"></select>')
+             filtros.append('')
+    }
+
 })
 
